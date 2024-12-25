@@ -9,7 +9,7 @@ public class ProductController : Controller
     private ProductModel _productModel;
 
     public ProductController(ProductModel productModel)
-        { _productModel = productModel; }
+    { _productModel = productModel; }
 
     [HttpGet]
     public ActionResult<List<Product>> GetProducts()
@@ -23,10 +23,10 @@ public class ProductController : Controller
         return Ok(_productModel.GetProductById());
     }
 
-    [HttpPost("{id}")]
+    [HttpPost]
     public ActionResult<Product> AddProduct()
     {
-        return 
+        return Ok(new Product());
 
     }
 }

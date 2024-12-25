@@ -8,9 +8,29 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<ShopContext>(opts =>
-            opts.UseSqlite());
-        services.AddMvc();
+        services.AddDbContext<ShopContext>();
         services.AddScoped<ProductController>();
+        services.AddScoped<ProductModel>();
+        services.AddMvc();
+        services.AddControllers();
+        services.AddSwaggerGen();
+        services.AddEndpointsApiExplorer();
     }
-}
+
+    public void ConfigureApp(WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseRouting();
+
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+    }
+}   

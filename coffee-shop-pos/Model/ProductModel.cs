@@ -1,4 +1,5 @@
 ﻿
+
 namespace coffee_shop_pos.Model;
 
 public class ProductModel
@@ -10,6 +11,11 @@ public class ProductModel
     }
     public List<Product> Index()
     {
-        
+        return new List<Product>();
+    }
+
+    internal object? GetProductById()
+    {
+        throw new NotImplementedException();
     }
 }
