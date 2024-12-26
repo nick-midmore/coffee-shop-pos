@@ -14,7 +14,7 @@ public class ProductController : Controller
 
     [HttpGet]
     public ActionResult<List<Product>> GetProducts()
-    { 
+    {
         return Ok(_productModel.Index());
     }
 
@@ -26,11 +26,21 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public ActionResult<Product> AddProduct([FromBody]Product product)
+    public ActionResult<Product> AddProduct([FromBody] Product product)
     {
         if (product != null)
         {
             return Ok(_productModel.AddProduct(product));
+        }
+        else return BadRequest();
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<Product> UpdateProduct([FromBody] Product product, int id)
+    {
+        if (product != null)
+        {
+            return Ok(_productModel.UpdateProduct(product, id));
         }
         else return BadRequest();
     }

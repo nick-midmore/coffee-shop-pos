@@ -18,7 +18,7 @@ public class ProductModel
             .ToListAsync();
     }
 
-    internal Product? GetProductById(int id)
+    public Product? GetProductById(int id)
     {
         try
         {
@@ -40,6 +40,28 @@ public class ProductModel
             return product;
         }
         catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public Product? UpdateProduct(Product product, int id)
+    {
+        try
+        {
+            var result = _context.Products.FirstOrDefault(x => x.ProductId == id);
+            if (result != null)
+            {
+                result.Name = product.Name;
+                result.Price = product.Price;
+                result.CategoryId = product.CategoryId;
+
+                _context.SaveChanges();
+                return result;
+            }
+            else return null;
+        }
+        catch
         {
             return null;
         }
