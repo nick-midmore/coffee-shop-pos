@@ -12,25 +12,11 @@ public class ProductModel
         _context = shopContext;
     }
     public async Task<List<Product>> Index()
-    {
-        return await _context.Products
-            .Include(x => x.Category)
-            .ToListAsync();
-    }
+        => await _context.Products.ToListAsync();
 
     public Product? GetProductById(int id)
-    {
-        try
-        {
-            return _context.Products
-                .Include(x => x.Category)
-                .FirstOrDefault(x => x.ProductId == id);
-        }
-        catch
-        {
-            return null;
-        }
-    }
+        => _context.Products.FirstOrDefault(x => x.ProductId == id);
+
     public Product? AddProduct(Product product)
     {
         try
@@ -39,7 +25,7 @@ public class ProductModel
             _context.SaveChanges();
             return product;
         }
-        catch (Exception ex)
+        catch
         {
             return null;
         }
@@ -49,7 +35,7 @@ public class ProductModel
     {
         try
         {
-            var result = _context.Products.FirstOrDefault(x => x.ProductId == id);
+            var result = GetProductById(id);
             if (result != null)
             {
                 result.Name = product.Name;
@@ -69,7 +55,7 @@ public class ProductModel
 
     public bool DeleteProduct(int id)
     {
-        var product = _context.Products.FirstOrDefault(x => x.ProductId == id);
+        var product = GetProductById(id);
         if (product != null)
         {
             _context.Products.Remove(product);

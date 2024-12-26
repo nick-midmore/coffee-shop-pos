@@ -38,10 +38,8 @@ public class ProductController : Controller
     [HttpPut("{id}")]
     public ActionResult<Product> UpdateProduct([FromBody] Product product, int id)
     {
-        if (product != null)
-        {
-            return Ok(_productModel.UpdateProduct(product, id));
-        }
+        var result = _productModel.UpdateProduct(product, id);
+        if (product != null && result != null) return Ok(result);
         else return BadRequest();
     }
 
