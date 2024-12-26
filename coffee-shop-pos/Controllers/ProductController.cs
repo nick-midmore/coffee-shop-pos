@@ -26,12 +26,11 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public ActionResult<Product> AddProduct([FromBody]JsonObject productJson)
+    public ActionResult<Product> AddProduct([FromBody]Product product)
     {
-        var product = _productModel.AddProduct(productJson);
         if (product != null)
         {
-            return Ok(product);
+            return Ok(_productModel.AddProduct(product));
         }
         else return BadRequest();
     }

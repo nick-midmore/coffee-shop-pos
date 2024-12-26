@@ -1,5 +1,4 @@
-﻿
-
+﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -12,30 +11,33 @@ public class ProductModel
     {
         _context = shopContext;
     }
-    public List<Product> Index()
+    public async Task<List<Product>> Index()
     {
-        return _context.Products.ToList();
+        return await _context.Products
+            .Include(x => x.Category)
+            .ToListAsync();
     }
 
     internal Product? GetProductById(int id)
     {
         try
         {
-            return _context.Products.FirstOrDefault(x => x.ProductId == id);
+            return _context.Products
+                .Include(x => x.Category)
+                .FirstOrDefault(x => x.ProductId == id);
         }
         catch
         {
             return null;
         }
     }
-    public Product? AddProduct(JsonObject productJson)
+    public Product? AddProduct(Product product)
     {
         try
         {
-            var p = JsonSerializer.Deserialize<Product>(productJson);
-            _context.Products.Add(p);
+            _context.Products.Add(product);
             _context.SaveChanges();
-            return p;
+            return product;
         }
         catch (Exception ex)
         {

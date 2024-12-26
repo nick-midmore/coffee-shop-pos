@@ -9,6 +9,7 @@ namespace coffee_shop_pos.Model;
 public class Product
 {
     [Key]
+    [JsonPropertyName("id")]
     public int ProductId { get; set; }
 
     [Required]

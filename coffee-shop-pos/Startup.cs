@@ -12,7 +12,9 @@ public class Startup
         services.AddScoped<ProductController>();
         services.AddScoped<ProductModel>();
         services.AddMvc();
-        services.AddControllers();
+        services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        );
         services.AddSwaggerGen();
         services.AddEndpointsApiExplorer();
     }
