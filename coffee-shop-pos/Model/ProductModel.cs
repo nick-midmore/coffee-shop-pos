@@ -44,4 +44,16 @@ public class ProductModel
             return null;
         }
     }
+
+    public bool DeleteProduct(int id)
+    {
+        var product = _context.Products.FirstOrDefault(x => x.ProductId == id);
+        if (product != null)
+        {
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            return true;
+        }
+        else return false;
+    }
 }

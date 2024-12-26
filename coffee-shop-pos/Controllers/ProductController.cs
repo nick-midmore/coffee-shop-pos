@@ -34,4 +34,11 @@ public class ProductController : Controller
         }
         else return BadRequest();
     }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteProduct(int id)
+    {
+        if (_productModel.DeleteProduct(id)) return NoContent();
+        else return NotFound();
+    }
 }
