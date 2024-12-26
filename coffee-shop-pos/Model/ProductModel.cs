@@ -1,5 +1,8 @@
 ﻿
 
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
 namespace coffee_shop_pos.Model;
 
 public class ProductModel
@@ -17,5 +20,19 @@ public class ProductModel
     internal object? GetProductById()
     {
         throw new NotImplementedException();
+    }
+    public Product? AddProduct(JsonObject productJson)
+    {
+        try
+        {
+            var p = JsonSerializer.Deserialize<Product>(productJson);
+            _context.Products.Add(p);
+            _context.SaveChanges();
+            return p;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 }

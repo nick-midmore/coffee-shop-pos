@@ -1,5 +1,6 @@
 ﻿using coffee_shop_pos.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Nodes;
 
 namespace coffee_shop_pos.Controllers;
 
@@ -13,7 +14,7 @@ public class ProductController : Controller
 
     [HttpGet]
     public ActionResult<List<Product>> GetProducts()
-    {
+    { 
         return Ok(_productModel.Index());
     }
 
@@ -24,9 +25,13 @@ public class ProductController : Controller
     }
 
     [HttpPost]
-    public ActionResult<Product> AddProduct()
+    public ActionResult<Product> AddProduct([FromBody]JsonObject productJson)
     {
-        return Ok(new Product());
-
+        var product = _productModel.AddProduct(productJson);
+        if (product != null)
+        {
+            return Ok(product);
+        }
+        else return BadRequest();
     }
 }
