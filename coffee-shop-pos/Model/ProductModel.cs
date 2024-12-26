@@ -14,12 +14,19 @@ public class ProductModel
     }
     public List<Product> Index()
     {
-        return new List<Product>();
+        return _context.Products.ToList();
     }
 
-    internal object? GetProductById()
+    internal Product? GetProductById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return _context.Products.FirstOrDefault(x => x.ProductId == id);
+        }
+        catch
+        {
+            return null;
+        }
     }
     public Product? AddProduct(JsonObject productJson)
     {

@@ -19,9 +19,10 @@ public class ProductController : Controller
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Product> GetProductById()
+    public ActionResult<Product> GetProductById(int id)
     {
-        return Ok(_productModel.GetProductById());
+        var product = _productModel.GetProductById(id);
+        return product != null ? Ok(product) : NotFound();
     }
 
     [HttpPost]
