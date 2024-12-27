@@ -1,4 +1,5 @@
-﻿using coffee_shop_pos.Model;
+﻿using coffee_shop_pos.DataClasses;
+using coffee_shop_pos.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Nodes;
 
