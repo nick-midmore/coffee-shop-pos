@@ -11,5 +11,8 @@ public class CategoryModel
         => _context = context;
 
     public List<Category> Index()
-        => _context.Categories.ToList(); 
+        => _context.Categories.ToList();
+
+    public Category? GetCategoryById(int id)
+        => _context.Categories.FirstOrDefault(c => c.CategoryId == id);
 }

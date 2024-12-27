@@ -9,9 +9,8 @@ public class ProductModel
 {
     private readonly ShopContext _context;
     public ProductModel(ShopContext shopContext)
-    {
-        _context = shopContext;
-    }
+        => _context = shopContext;
+
     public async Task<List<Product>> Index()
         => await _context.Products.ToListAsync();
 
