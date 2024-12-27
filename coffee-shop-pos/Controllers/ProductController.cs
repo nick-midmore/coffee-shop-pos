@@ -5,19 +5,17 @@ using System.Text.Json.Nodes;
 
 namespace coffee_shop_pos.Controllers;
 
-[Route("api/products")]
+[Route("api/[controller]")]
 public class ProductController : Controller
 {
     private ProductModel _productModel;
 
-    public ProductController(ProductModel productModel)
-    { _productModel = productModel; }
+    public ProductController(ProductModel productModel) 
+        => _productModel = productModel;
 
     [HttpGet]
     public ActionResult<List<Product>> GetProducts()
-    {
-        return Ok(_productModel.Index());
-    }
+        => Ok(_productModel.Index());
 
     [HttpGet("{id}")]
     public ActionResult<Product> GetProductById(int id)

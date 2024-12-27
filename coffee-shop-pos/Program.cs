@@ -2,7 +2,7 @@ using coffee_shop_pos;
 using coffee_shop_pos.Model;
 
 var context = new ShopContext();
-context.Database.EnsureDeleted();
+//context.Database.EnsureDeleted();
 context.Database.EnsureCreated();
 
 var builder = WebApplication.CreateBuilder(args);
