@@ -15,4 +15,18 @@ public class CategoryModel
 
     public Category? GetCategoryById(int id)
         => _context.Categories.FirstOrDefault(c => c.CategoryId == id);
+
+    public Category? AddCategory(Category category)
+    {
+        try
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+            return category;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }
