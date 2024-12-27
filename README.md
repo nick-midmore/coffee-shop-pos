@@ -15,6 +15,4 @@ To run locally, .NET 4.8 or later is required. A cross-platform hosted version w
 ### Executing program
 
 Clone this repo/download ZIP and run the project in VS or other compatible IDE
-```
-code blocks for commands
-```
+
