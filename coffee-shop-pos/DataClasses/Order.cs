@@ -6,5 +6,5 @@ public class Order
     public decimal TotalPrice { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public ICollection<ProductOrder> ProductOrders { get; set; }
+    public ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 }

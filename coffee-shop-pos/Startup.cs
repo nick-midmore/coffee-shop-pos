@@ -10,7 +10,11 @@ public class Startup
     {
         services.AddDbContext<ShopContext>();
         services.AddScoped<ProductController>();
+        services.AddScoped<CategoryController>();
+        services.AddScoped<OrderController>();
         services.AddScoped<ProductModel>();
+        services.AddScoped<CategoryModel>();
+        services.AddScoped<OrderModel>();
         services.AddMvc();
         services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

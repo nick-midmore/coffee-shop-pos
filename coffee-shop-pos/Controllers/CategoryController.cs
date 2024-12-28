@@ -9,6 +9,7 @@ public class CategoryController : Controller
 {
     private CategoryModel _categoryModel;
 
+
     public CategoryController(CategoryModel categoryModel)
         => _categoryModel = categoryModel;
 
@@ -25,13 +26,7 @@ public class CategoryController : Controller
 
     [HttpPost]
     public ActionResult<Category> AddCategory([FromBody] Category category)
-    {
-        if (category != null)
-        {
-            return Ok(_categoryModel.AddCategory(category));
-        }
-        else return BadRequest();
-    }
+        => category != null ? Ok(category) : BadRequest();
 
     [HttpPut("{id}")]
     public ActionResult<Category> UpdateCategory([FromBody] Category category, int id)
