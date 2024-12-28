@@ -1,4 +1,5 @@
 ﻿using coffee_shop_pos.DataClasses;
+using coffee_shop_pos.DataClasses.DTO;
 using coffee_shop_pos.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ public class OrderController :Controller
     //}
 
     [HttpPost]
-    public ActionResult<Order> AddOrder([FromBody]List<ProductOrder> orders)
+    public ActionResult<Order> AddOrder([FromBody]List<ProductOrderDto> orders)
     {
         var order = _orderModel.AddOrder(orders);
         return order == null ? Ok(order) : BadRequest();

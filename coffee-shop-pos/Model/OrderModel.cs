@@ -1,36 +1,48 @@
 ﻿using coffee_shop_pos.DataClasses;
+using coffee_shop_pos.DataClasses.DTO;
 
 namespace coffee_shop_pos.Model;
 
 public class OrderModel
 {
     private readonly ShopContext _context;
+    private readonly ProductModel _productModel;
     
-    public OrderModel(ShopContext shopContext)
-        => _context = shopContext;
+    public OrderModel(ShopContext shopContext, ProductModel productModel)
+    {
+        _context = shopContext;
+        _productModel = productModel;
+    }    
 
-    public Order? AddOrder(List<ProductOrder> orders)
+    public Order? AddOrder(List<ProductOrderDto> orders)
     {
         if (orders.GroupBy(x => x.OrderId).Count() != 1 ||
             orders == null ||
             orders.Count == 0) return null;
 
         var newOrder = new Order();
-        _context.Orders.Add(newOrder);
-        _context.SaveChanges();
+        newOrder.CreatedAt = DateTime.Now;
 
-        foreach (var order in orders)
+        foreach (var orderDto in orders)
         {
-            var product = _context.Products.FirstOrDefault(p => p.ProductId == order.ProductId);
+            var product = _productModel.GetProductById(orderDto.ProductId);
             if (product == null) return null;
-            order.Order = newOrder;
-            order.Product = product;
 
-            newOrder.TotalPrice += order.Product.Price * order.Quantity;
-            newOrder.ProductOrders.Add(order);
+            var productOrder = new ProductOrder
+            {
+                OrderId = newOrder.OrderId,
+                Order = newOrder,
+                ProductId = orderDto.ProductId,
+                Product = product,
+                Quantity = orderDto.Quantity
+            };
+
+            newOrder.TotalPrice += productOrder.Product.Price * orderDto.Quantity;
+            newOrder.ProductOrders.Add(productOrder);
+            _context.ProductOrders.Add(productOrder);
         }
 
-        _context.ProductOrders.AddRange(orders);
+        _context.Orders.Add(newOrder);
         _context.SaveChanges();
         return newOrder;
     }
