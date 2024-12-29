@@ -16,9 +16,10 @@ public class OrderModel
 
     public Order? AddOrder(List<ProductOrderDto> orders)
     {
-        if (orders.GroupBy(x => x.OrderId).Count() != 1 ||
-            orders == null ||
-            orders.Count == 0) return null;
+        if (orders == null || orders.Count == 0)
+        {
+            return null;
+        }
 
         var newOrder = new Order();
         newOrder.CreatedAt = DateTime.Now;
@@ -30,7 +31,6 @@ public class OrderModel
 
             var productOrder = new ProductOrder
             {
-                OrderId = newOrder.OrderId,
                 Order = newOrder,
                 ProductId = orderDto.ProductId,
                 Product = product,

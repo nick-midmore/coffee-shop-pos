@@ -28,6 +28,6 @@ public class OrderController :Controller
     public ActionResult<Order> AddOrder([FromBody]List<ProductOrderDto> orders)
     {
         var order = _orderModel.AddOrder(orders);
-        return order == null ? Ok(order) : BadRequest();
+        return order != null ? Ok(order) : BadRequest();
     }
 }
